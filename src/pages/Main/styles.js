@@ -1,5 +1,4 @@
 import styled, { keyframes, css } from "styled-components";
-import { animationFrame } from "rxjs/internal/scheduler/animationFrame";
 
 export const Container = styled.div`
   max-width: 700px;
@@ -63,12 +62,35 @@ export const SubmitButton = styled.button.attrs(props => ({
     cursor: not-allowed;
     opacity: 0.6;
   }
-  
-  ${props=> 
+
+  ${props =>
     props.loading &&
     css`
       svg {
         animation: ${rotate} 2s linear infinite;
       }
     `}
+`;
+
+export const List = styled.ul`
+  list-style: none;
+  margin-top: 30px;
+
+  li {
+    padding: 15px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    & + li {
+      /*pega todos os li que possuem um li antes ou seja todos menos o primeiro;*/
+      border-top: 1px solid #eee;
+    }
+
+    a {
+      color: #7159c1;
+      text-decoration: none;
+    }
+  }
 `;
