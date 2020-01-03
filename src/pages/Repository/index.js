@@ -1,13 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class Repository extends Component {
-  render() {
-    return (
-      <>
-        <h1>Repository page reps</h1>
-      </>
-    );
-  }
+// import { Container } from './styles';
+
+export default function Repository({match}) {
+  return (
+    <>
+      <h1>Repository: {decodeURIComponent(match.params.repository)} </h1>
+    </>
+  );
 }
-
-export default Repository;
