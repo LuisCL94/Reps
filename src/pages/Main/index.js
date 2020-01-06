@@ -5,9 +5,8 @@ import api from "../../services/api";
 
 import { Container, Form, SubmitButton, List } from "./styles";
 import { Link } from 'react-router-dom';
-import Repository from "../Repository";
 
-export class Main extends Component {
+export default class Main extends Component {
   state = {
     newRepo: "",
     repositories: [],
@@ -100,5 +99,3 @@ export class Main extends Component {
     );
   }
 }
-
-export default Main;
