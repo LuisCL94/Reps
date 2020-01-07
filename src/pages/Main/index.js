@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { FaGithubAlt, FaPlus, FaSpinner } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { FaGithubAlt, FaPlus, FaSpinner, FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import api from "../../services/api";
 
-import Container from "../../components/Container"
-import { Form, SubmitButton, List } from "./styles";
+import Container from "../../components/Container";
+import { Form, SubmitButton, List, Options } from "./styles";
 
 export default class Main extends Component {
   state = {
@@ -14,21 +14,21 @@ export default class Main extends Component {
     loading: false
   };
 
-  // carregar os dados do localStorage
+  // load data from localStorage
   componentDidMount() {
-    const repositories = localStorage.getItem('repositories');
+    const repositories = localStorage.getItem("repositories");
 
-    if(repositories) {
-      this.setState({repositories: JSON.parse(repositories) });
+    if (repositories) {
+      this.setState({ repositories: JSON.parse(repositories) });
     }
   }
 
-  //salvar os dados do localStorage
+  //save data from localStorage
   componentDidUpdate(_, prevState) {
-    const {repositories} = this.state;
+    const { repositories } = this.state;
 
-    if(prevState.repositories !== repositories) {
-      localStorage.setItem('repositories', JSON.stringify(repositories));
+    if (prevState.repositories !== repositories) {
+      localStorage.setItem("repositories", JSON.stringify(repositories));
     }
   }
 
@@ -37,7 +37,7 @@ export default class Main extends Component {
   };
 
   handleSubmit = async e => {
-    e.preventDefault(); //evita que o formulario faca refresh na pagina
+    e.preventDefault();
 
     this.setState({ loading: true });
 
@@ -45,19 +45,20 @@ export default class Main extends Component {
 
     const response = await api.get(`/repos/${this.state.newRepo}`);
 
-    // console.log(response.data);
-
     const data = {
       name: response.data.full_name
     };
 
     this.setState({
-      repositories: [...this.state.repositories, data], //colocando nomes do repositorio no
-      //vetor repositories
+      repositories: [...this.state.repositories, data],
       newRepo: "",
       loading: false
     });
   };
+
+  handleDelete = (repository)=> {
+    this.setState({ repositories: this.state.repositories.filter(rep => rep !== repository)});
+  }
 
   render() {
     // const { newRepo } = this.state;
@@ -85,13 +86,18 @@ export default class Main extends Component {
             </SubmitButton>
           </Form>
 
-          <List> 
-            {this.state.repositories.map(repository=>(
+          <List>
+            {this.state.repositories.map(repository => (
               <li key={repository.name}>
                 <span>{repository.name}</span>
-                <Link to={`/repository/${encodeURIComponent(repository.name)}`}>
-                  Detalhes
-                </Link>
+                <Options>
+                  <Link
+                    to={`/repository/${encodeURIComponent(repository.name)}`}
+                  >
+                    Detalhes
+                  </Link>
+                    <FaTrashAlt onClick = {() => this.handleDelete(repository)}/>
+                </Options>
               </li>
             ))}
           </List>

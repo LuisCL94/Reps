@@ -14,10 +14,9 @@ export const Form = styled.form`
   }
 `;
 
-// criando funcao de animação de giro em css;
 const rotate = keyframes`
   from {
-    transform: rotate(0deg); /*item comeca sem nenhuma rotacao */
+    transform: rotate(0deg);
 
   }  to {
     transform: rotate(360deg);
@@ -25,7 +24,7 @@ const rotate = keyframes`
 `;
 
 export const SubmitButton = styled.button.attrs(props => ({
-  type: "submit", //eu posso passa passar os atributos direto por aqui
+  type: "submit",
   disabled: props.loading
 }))`
   background: #7159c1;
@@ -64,13 +63,27 @@ export const List = styled.ul`
     align-items: center;
 
     & + li {
-      /*pega todos os li que possuem um li antes ou seja todos menos o primeiro;*/
       border-top: 1px solid #eee;
     }
 
     a {
       color: #7159c1;
       text-decoration: none;
+    }
+  }
+`;
+
+export const Options = styled.ul`
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    margin-left: 10px;
+
+    &:hover {
+      cursor: pointer;
     }
   }
 `;

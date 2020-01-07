@@ -56,7 +56,7 @@ export const IssueList = styled.ul`
     border-radius: 4px;
   }
 
-  & + li { /*aplica apenas nos elementos apos o primeiro */
+  & + li {
     margin-top: 10px;
   }
 
